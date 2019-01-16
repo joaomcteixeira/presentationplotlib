@@ -1,90 +1,173 @@
 from functools import wraps
+import numpy as np
 
 from matplotlib import pyplot as plt
+from matplotlib.ticker import AutoMinorLocator
 
-
-def template1(func):
+class Template1:
     
-    general_color = "#2A77D0"
-    signature = """João M.C. Teixeira
-http://bit.ly/joaomcteixeira"""
-    
-    figure, ax = plt.subplots(
-        nrows=1,
-        ncols=1,
-        figsize=[11.02, 6.20],
+    color = "#2A77D0"
+    font = "Cantarell"
+    top_line_position = 0.98
+    bottom_line_position = 0.01
+    signature = (
+        r"http://bit.ly/joaomcteixeira"
         )
     
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    
-    plt.tick_params(
-        axis='both',
-        bottom=False,
-        left=False,
-        labelbottom=False,
+    square_box = dict(
+        boxstyle="square",
+        pad=0.5,
+        fc="white",
+        lw=0,
         )
     
-    plt.tight_layout(
-        rect=[-0.04, -0.035, 1.015, 1.028]
-        )
+    top_bottom_lines = {
+        "linestyle": "-",
+        "linewidth": 1,
+        "color": color,
+        }
     
-    ax.spines["left"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["top"].set_visible(False)
-    ax.spines["bottom"].set_visible(False)
-    
-    x1 = 0.01
-    x2 = 0.99
-    y1 = 0.99
-    y2 = 0.99
-    
-    ax.plot(
-        [x1, x2],
-        [y1, y2],
-        color=general_color,
-        linestyle='-',
-        linewidth=1,
-        )
-    
-    x1 = 0.01
-    x2 = 0.99
-    y1 = 0.01
-    y2 = 0.01
-    
-    ax.plot(
-        [x1, x2],
-        [y1, y2],
-        color=general_color,
-        linestyle='-',
-        linewidth=1,
-        )
-    
-    bbox_props = dict(boxstyle="square,pad=0.5", fc="white", lw=0)
-    ax.text(
-        0.86,
-        0.01,
-        signature,
-        fontsize=8,
-        color=general_color,
-        bbox=bbox_props,
-        )
-    
-    @wraps(func)
-    def wrapper(*args, **kwargs):
+    page_num_props = {
+        "fontname": font,
+        "color": color,
+        "fontsize": 10,
+        "ha": "center",
+        "va": "center",
+        "bbox": square_box,
+        }
         
-        slide = func(*args, figure=figure, ax=ax, **kwargs)
+    
+    signature_props = {
+        "fontname": font,
+        "color": color,
+        "fontsize": 8,
+        "bbox": square_box,
+        }
+    
+    suptitle_props = {
+        "fontname": font,
+        "fontsize": 12,
+        "color": color,
+        "bbox": square_box,
+        "va": "center",
+        }
+    
+    
+    main_title_props = {
+        "fontname": font,
+        "color": color,
+        "fontsize": 20,
+        "va": "center",
+        "ha": "center",
+        "x": 0.5,
+        "y": 0.5,
+        }
+    
+    
+    def add_axis(figure, rect):
         
+        ax = figure.add_axes(rect)
+        ax.axis('off')
+        
+        return ax
+    
+    
+    def add_figure(figure, rect, path):
+        
+        ax = Template1.add_axis(figure, rect)
+        
+        image = plt.imread(path)
+        ax.imshow(image, aspect="equal", interpolation="none")
+        
+        return ax
+    
+    
+    def add_maintitle(ax, s):
+        
+        ax.text(s=s, **Template1.main_title_props)
+        
+        return
+    
+    
+    def add_suptitle(ax, s):
         ax.text(
-            0.5,
-            0.01,
-            args[0],
-            ha="center",
-            va="center",
-            color=general_color,
-            bbox=bbox_props,
+        x=0.02,
+        y=Template1.top_line_position,
+        s=s,
+        **Template1.suptitle_props,
+        )
+        
+        return
+    
+    def template(func):
+        
+        figure, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=[11.02, 6.20],
             )
         
-        return slide
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        
+        # ax.set_xticks(np.arange(0, 1, 0.1))
+        # ax.set_yticks(np.arange(0, 1, 0.1))
+        
+        # ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+        # ax.yaxis.set_minor_locator(AutoMinorLocator(5))
+        
+        # ax.grid(b=True, which="major", axis='both', color='grey')
+        # ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
+        
+        ax.axis("off")
+        
+        plt.tight_layout(
+            rect=[-0.04, -0.06, 1.02, 1.028]
+            )
+        
+        x1 = 0.01
+        x2 = 0.99
+        y1 = Template1.top_line_position
+        y2 = Template1.top_line_position
+        
+        ax.plot(
+            [x1, x2],
+            [y1, y2],
+            **Template1.top_bottom_lines
+            )
+        
+        x1 = 0.01
+        x2 = 0.99
+        y1 = Template1.bottom_line_position
+        y2 = Template1.bottom_line_position
+        
+        ax.plot(
+            [x1, x2],
+            [y1, y2],
+            **Template1.top_bottom_lines
+            )
+        
+        bbox_props = dict(boxstyle="square,pad=0.5", fc="white", lw=0)
+        ax.text(
+            x=0.88,
+            y=Template1.bottom_line_position,
+            s=Template1.signature,
+            **Template1.signature_props
+            )
+        
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            
+            slide = func(*args, figure=figure, ax=ax, **kwargs)
+            
+            ax.text(
+                0.5,
+                Template1.bottom_line_position,
+                args[0],
+                **Template1.page_num_props
+                )
+            
+            return slide
+        
+        return wrapper
     
-    return wrapper

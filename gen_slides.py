@@ -9,5 +9,5 @@ for i, slide_path in enumerate(sys.argv[1:], start=1):
     
     fig, ax = sld.slide(i)
     
-    plt.savefig(f"{slide_path[:-4]}_{i}.pdf")
+    plt.savefig(f"page_{i:0>4}_{slide_path[:-3]}.pdf")
     plt.close("all")
