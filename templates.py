@@ -79,13 +79,21 @@ class Template1:
         "ha": "left",
         }
     
-    text_box_lined = {
+    text_box = {
         "fontname": font,
         "color": "black",
-        "fontsize": 10,
+        "fontsize": 12,
         "va": "top",
         "ha": "left",
-        "multialignment": "left"
+        "multialignment": "left",
+        "linespacing": 1.5,
+        }
+    
+    labels_props = {
+        "fontname": font,
+        "fontsize": 16,
+        "va": "bottom",
+        "ha": "left",
         }
     
     def add_axis(figure, rect):
@@ -152,16 +160,16 @@ class Template1:
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         
-        ax.set_xticks(np.arange(0, 1, 0.1))
-        ax.set_yticks(np.arange(0, 1, 0.1))
+        # ax.set_xticks(np.arange(0, 1, 0.1))
+        # ax.set_yticks(np.arange(0, 1, 0.1))
         
-        ax.xaxis.set_minor_locator(AutoMinorLocator(5))
-        ax.yaxis.set_minor_locator(AutoMinorLocator(5))
+        # ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+        # ax.yaxis.set_minor_locator(AutoMinorLocator(5))
         
-        ax.grid(b=True, which="major", axis='both', color='grey')
-        ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
+        # ax.grid(b=True, which="major", axis='both', color='grey')
+        # ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
         
-        ax.axis("on")
+        ax.axis("off")
         
         
         plt.tight_layout(
