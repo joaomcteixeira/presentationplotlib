@@ -14,11 +14,19 @@ class Template1:
         r"http://bit.ly/joaomcteixeira"
         )
     
-    square_box = dict(
+    white_box = dict(
         boxstyle="square",
         pad=0.5,
         fc="white",
         lw=0,
+        )
+    
+    rounded_line_box = dict(
+        boxstyle="round",
+        pad=0.5,
+        fc="white",
+        lw=1,
+        ec="black",
         )
     
     top_bottom_lines = {
@@ -33,7 +41,7 @@ class Template1:
         "fontsize": 10,
         "ha": "center",
         "va": "center",
-        "bbox": square_box,
+        "bbox": white_box,
         }
         
     
@@ -41,14 +49,14 @@ class Template1:
         "fontname": font,
         "color": color,
         "fontsize": 8,
-        "bbox": square_box,
+        "bbox": white_box,
         }
     
     suptitle_props = {
         "fontname": font,
         "fontsize": 12,
         "color": color,
-        "bbox": square_box,
+        "bbox": white_box,
         "va": "center",
         }
     
@@ -63,6 +71,22 @@ class Template1:
         "y": 0.5,
         }
     
+    references_props = {
+        "fontname": font,
+        "color": "black",
+        "fontsize": 10,
+        "va": "bottom",
+        "ha": "left",
+        }
+    
+    text_box_lined = {
+        "fontname": font,
+        "color": "black",
+        "fontsize": 10,
+        "va": "top",
+        "ha": "left",
+        "multialignment": "left"
+        }
     
     def add_axis(figure, rect):
         
@@ -81,6 +105,22 @@ class Template1:
         
         return ax
     
+    def add_figure_border(figure, rect, path):
+        
+        ax = Template1.add_figure(figure, rect, path)
+        
+        ax.axis("on")
+        
+        ax.tick_params(
+            axis='both',
+            which='both',
+            bottom=False,
+            left=False,
+            labelbottom=False,
+            labelleft=False,
+            )
+        
+        return ax
     
     def add_maintitle(ax, s):
         
@@ -107,19 +147,22 @@ class Template1:
             figsize=[11.02, 6.20],
             )
         
+        ax.patch.set_facecolor('none')
+        
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         
-        # ax.set_xticks(np.arange(0, 1, 0.1))
-        # ax.set_yticks(np.arange(0, 1, 0.1))
+        ax.set_xticks(np.arange(0, 1, 0.1))
+        ax.set_yticks(np.arange(0, 1, 0.1))
         
-        # ax.xaxis.set_minor_locator(AutoMinorLocator(5))
-        # ax.yaxis.set_minor_locator(AutoMinorLocator(5))
+        ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+        ax.yaxis.set_minor_locator(AutoMinorLocator(5))
         
-        # ax.grid(b=True, which="major", axis='both', color='grey')
-        # ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
+        ax.grid(b=True, which="major", axis='both', color='grey')
+        ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
         
-        ax.axis("off")
+        ax.axis("on")
+        
         
         plt.tight_layout(
             rect=[-0.04, -0.06, 1.02, 1.028]
