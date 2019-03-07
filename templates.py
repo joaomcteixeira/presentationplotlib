@@ -61,6 +61,14 @@ class Template1:
         }
     
     
+    big_title_props = {
+        "fontname": font,
+        "color": color,
+        "fontsize": 20,
+        "va": "bottom",
+        "ha": "left",
+        }
+    
     main_title_props = {
         "fontname": font,
         "color": color,
@@ -147,8 +155,7 @@ class Template1:
         
         return
     
-    def template(func):
-        
+    def set_screen():
         figure, ax = plt.subplots(
             nrows=1,
             ncols=1,
@@ -176,6 +183,12 @@ class Template1:
             rect=[-0.04, -0.06, 1.02, 1.028]
             )
         
+        return figure, ax
+    
+    def set_main_template():
+        
+        figure, ax = Template1.set_screen()
+        
         x1 = 0.01
         x2 = 0.99
         y1 = Template1.top_line_position
@@ -198,7 +211,40 @@ class Template1:
             **Template1.top_bottom_lines
             )
         
-        bbox_props = dict(boxstyle="square,pad=0.5", fc="white", lw=0)
+        return figure, ax
+    
+    def page0(func):
+        
+        figure, ax = Template1.set_screen()
+        
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            
+            slide = func(*args, figure=figure, ax=ax, **kwargs)
+            
+            return slide
+        
+        return wrapper
+        
+    
+    def main_title_template(func):
+        
+        figure, ax = Template1.set_main_template()
+        
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            
+            slide = func(*args, figure=figure, ax=ax, **kwargs)
+            
+            return slide
+        
+        return wrapper
+    
+    
+    def template(func):
+        
+        figure, ax = Template1.set_main_template()
+        
         ax.text(
             x=0.88,
             y=Template1.bottom_line_position,
