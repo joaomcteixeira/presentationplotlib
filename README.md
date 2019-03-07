@@ -2,7 +2,7 @@
 
 This is an experimental project of me using [matplotlib](https://matplotlib.org/) to create PDF based presentations.
 
-If you want real PPT presentations please see other libraries like[python-pptx](https://python-pptx.readthedocs.io/en/latest/index.html). But, because all my presentations are PDF based, I want to find my way with matplotlib :-)
+If you want to create PPT presentations with Python please see other libraries like [python-pptx](https://python-pptx.readthedocs.io/en/latest/index.html). But, because all my presentations are PDF based, I want to find my way with matplotlib :-)
 
 # How to run
 
