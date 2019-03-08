@@ -5,14 +5,39 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 
 class Template1:
+    """
+    Stored attributes (variables) and helper functions that define
+    Template 1.
+    """
     
     color = "#2A77D0"
+    """
+    Main template colour
+    """
+    
     font = "Cantarell"
+    """
+    Main template font
+    """
+    
     top_line_position = 0.98
+    """
+    A line at the top of the slide
+    """
+    
     bottom_line_position = 0.01
-    signature = (
-        r"http://bit.ly/joaomcteixeira"
-        )
+    """
+    A line at the bottom of the slide
+    """
+    
+    top_bottom_lines = {
+        "linestyle": "-",
+        "linewidth": 1,
+        "color": color,
+        }
+    """
+    Line style for top and bottom lines.
+    """
     
     white_box = dict(
         boxstyle="square",
@@ -20,6 +45,9 @@ class Template1:
         fc="white",
         lw=0,
         )
+    """
+    A white box. Is useful to support text boxes or other objects.
+    """
     
     rounded_line_box = dict(
         boxstyle="round",
@@ -28,12 +56,9 @@ class Template1:
         lw=1,
         ec="black",
         )
-    
-    top_bottom_lines = {
-        "linestyle": "-",
-        "linewidth": 1,
-        "color": color,
-        }
+    """
+    dict : A rounded line box.
+    """
     
     page_num_props = {
         "fontname": font,
@@ -43,7 +68,16 @@ class Template1:
         "va": "center",
         "bbox": white_box,
         }
-        
+    """
+    dict : Properties for the page number.
+    """
+    
+    signature = (
+        r"http://bit.ly/joaomcteixeira"
+        )
+    """
+    My signature
+    """
     
     signature_props = {
         "fontname": font,
@@ -51,6 +85,9 @@ class Template1:
         "fontsize": 8,
         "bbox": white_box,
         }
+    """
+    dict : Properties for the signature.
+    """
     
     suptitle_props = {
         "fontname": font,
@@ -59,7 +96,9 @@ class Template1:
         "bbox": white_box,
         "va": "center",
         }
-    
+    """
+    dict : properties for the suptitle.
+    """
     
     big_title_props = {
         "fontname": font,
@@ -68,6 +107,9 @@ class Template1:
         "va": "bottom",
         "ha": "left",
         }
+    """
+    dict : Properties for the big title.
+    """
     
     main_title_props = {
         "fontname": font,
@@ -78,6 +120,9 @@ class Template1:
         "x": 0.5,
         "y": 0.5,
         }
+    """
+    dict : Properties for the main title.
+    """
     
     references_props = {
         "fontname": font,
@@ -86,6 +131,9 @@ class Template1:
         "va": "bottom",
         "ha": "left",
         }
+    """
+    dict : Properties for the references.
+    """
     
     text_box = {
         "fontname": font,
@@ -96,6 +144,9 @@ class Template1:
         "multialignment": "left",
         "linespacing": 1.5,
         }
+    """
+    dict : properties for a general text box.
+    """
     
     labels_props = {
         "fontname": font,
@@ -103,9 +154,14 @@ class Template1:
         "va": "bottom",
         "ha": "left",
         }
+    """
+    dict : properties for labels.
+    """
     
     def add_axis(figure, rect):
-        
+        """
+        Add a subplot (axis object) in rect position.
+        """
         ax = figure.add_axes(rect)
         ax.axis('off')
         
@@ -113,6 +169,11 @@ class Template1:
     
     
     def add_figure(figure, rect, path):
+        """
+        Adds a figure.
+        
+        In matplotlib figures are subplots :-)
+        """
         
         ax = Template1.add_axis(figure, rect)
         
@@ -122,6 +183,11 @@ class Template1:
         return ax
     
     def add_figure_border(figure, rect, path):
+        """
+        Adds a figure with border.
+        
+        See Template1.add_figure.
+        """
         
         ax = Template1.add_figure(figure, rect, path)
         
@@ -139,23 +205,46 @@ class Template1:
         return ax
     
     def add_maintitle(ax, s):
+        """
+        Adds main title.
+        
+        Parameters
+        ----------
+        ax : matplotlib axis.
+        
+        s : str
+            the text to be added.
+        """
         
         ax.text(s=s, **Template1.main_title_props)
         
         return
     
-    
     def add_suptitle(ax, s):
+        """
+        Adds suptitle.
+        
+        Parameters
+        ----------
+        ax : matplotlib axis.
+        
+        s : str
+            the text to be added.
+        """
+        
         ax.text(
-        x=0.02,
-        y=Template1.top_line_position,
-        s=s,
-        **Template1.suptitle_props,
-        )
+            x=0.02,
+            y=Template1.top_line_position,
+            s=s,
+            **Template1.suptitle_props,
+            )
         
         return
     
     def set_screen():
+        """
+        Configures slide size and main properties.
+        """
         figure, ax = plt.subplots(
             nrows=1,
             ncols=1,
@@ -167,17 +256,7 @@ class Template1:
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         
-        # ax.set_xticks(np.arange(0, 1, 0.1))
-        # ax.set_yticks(np.arange(0, 1, 0.1))
-        
-        # ax.xaxis.set_minor_locator(AutoMinorLocator(5))
-        # ax.yaxis.set_minor_locator(AutoMinorLocator(5))
-        
-        # ax.grid(b=True, which="major", axis='both', color='grey')
-        # ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
-        
         ax.axis("off")
-        
         
         plt.tight_layout(
             rect=[-0.04, -0.06, 1.02, 1.028]
@@ -213,12 +292,37 @@ class Template1:
         
         return figure, ax
     
-    def page0(func):
+    def add_grid(ax):
+        """
+        Adds grid to slide.
+        """
         
+        ax.set_xticks(np.arange(0, 1, 0.1))
+        ax.set_yticks(np.arange(0, 1, 0.1))
+        
+        ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+        ax.yaxis.set_minor_locator(AutoMinorLocator(5))
+        
+        ax.grid(b=True, which="major", axis='both', color='grey')
+        ax.grid(b=True, which="minor", axis='both', color='lightgrey', ls="-.")
+        
+        ax.axis("on")
+        
+        return
+    
+    def page0(func):
+        """
+        Decorator template for page 0.
+        
+        This is a specific page of Template1.
+        """
         figure, ax = Template1.set_screen()
         
         @wraps(func)
         def wrapper(*args, **kwargs):
+            
+            if kwargs["grid"]:
+                Template1.add_grid(ax)
             
             slide = func(*args, figure=figure, ax=ax, **kwargs)
             
@@ -228,11 +332,19 @@ class Template1:
         
     
     def main_title_template(func):
+        """
+        Decorator template for main title page.
+        
+        This is a specific page of Template1.
+        """
         
         figure, ax = Template1.set_main_template()
         
         @wraps(func)
         def wrapper(*args, **kwargs):
+            
+            if kwargs["grid"]:
+                Template1.add_grid(ax)
             
             slide = func(*args, figure=figure, ax=ax, **kwargs)
             
@@ -242,6 +354,9 @@ class Template1:
     
     
     def template(func):
+        """
+        Decorator template for general slides.
+        """
         
         figure, ax = Template1.set_main_template()
         
@@ -254,6 +369,9 @@ class Template1:
         
         @wraps(func)
         def wrapper(*args, **kwargs):
+            
+            if kwargs["grid"]:
+                Template1.add_grid(ax)
             
             slide = func(*args, figure=figure, ax=ax, **kwargs)
             
