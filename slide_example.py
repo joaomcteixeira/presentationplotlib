@@ -10,7 +10,6 @@ def slide(
         figure=None, 
         ax=None,
         title="",
-        grid=False,
         **kwargs
         ):
     
