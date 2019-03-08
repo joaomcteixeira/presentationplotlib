@@ -4,7 +4,7 @@ This is an experimental project where I use [matplotlib](https://matplotlib.org/
 
 If you want to create PPT presentations with Python please see other libraries like [python-pptx](https://python-pptx.readthedocs.io/en/latest/index.html).
 
-# How to run
+## How to run
 
 Use the `slide_example.py` template file to create your slides.  
 
@@ -20,6 +20,6 @@ You can generate a PDF file for each slide running the _slide_ script independen
 python gen_slides.py slide1.py slide2.py slide3.py ETC...
 ```
 
-This will generate a PDF file for each slide passed. Use the program of your choice to concatenate those PDFs.
+This will generate a PDF file for each slide passed.
 
-Normally, I generate the full presentation with the help of a *bash* [script](https://github.com/joaomcteixeira/presentationplotlib/blob/master/make_slides.sh) and [pdfunite](http://www.manpagez.com/man/1/pdfunite/) which comes natively with my Linux distribution ([Xubuntu](https://xubuntu.org/) here `:-)`).
+Use the program of your choice to concatenate those PDFs. Normally, I generate the full presentation with the help of a *bash* [script](https://github.com/joaomcteixeira/presentationplotlib/blob/master/make_slides.sh) and [pdfunite](http://www.manpagez.com/man/1/pdfunite/) which comes natively with my Linux distribution ([Xubuntu](https://xubuntu.org/) here `:-)`).
