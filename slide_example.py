@@ -5,7 +5,14 @@ from templates import Template1
 
 
 @Template1.template
-def slide(page_number, figure=None, ax=None, title=""):
+def slide(
+        page_number,
+        figure=None, 
+        ax=None,
+        title="",
+        grid=False,
+        **kwargs
+        ):
     
     Template1.add_suptitle(s="your cool title here", ax=ax)
     
