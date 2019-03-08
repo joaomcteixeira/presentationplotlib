@@ -1,19 +1,13 @@
 from matplotlib import pyplot as plt
+from matplotlib import patches as mpatches
 
-import templates
+from templates import Template1
 
 
-@templates.Template1.template
+@Template1.template
 def slide(page_number, figure=None, ax=None, title=""):
     
-    ax.text(
-        0.02,
-        0.98,
-        "Farseer-NMR",
-        color=templates.general_color_1,
-        bbox=templates.bbox_props_1,
-        va="center",
-        )
+    Template1.add_suptitle(s="your cool title here", ax=ax)
     
     return figure, ax
 
@@ -22,4 +16,4 @@ if __name__ == "__main__":
     
     slide(1)
     
-    plt.savefig("slide.pdf")
+    plt.savefig("slide_example.pdf")
