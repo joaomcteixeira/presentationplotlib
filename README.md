@@ -1,5 +1,7 @@
 # presentationplotlib
 
+![https://img.shields.io/static/v1.svg?label=<version>&message=<0.1>&color=<9cf>]
+
 This is an experimental project where I use [matplotlib](https://matplotlib.org/) to create PDF based scientific presentations.
 
 If you want to create PPT presentations with Python please see other libraries like [python-pptx](https://python-pptx.readthedocs.io/en/latest/index.html).
