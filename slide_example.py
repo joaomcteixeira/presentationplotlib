@@ -1,13 +1,13 @@
 from matplotlib import pyplot as plt
 from matplotlib import patches as mpatches
 
-from templates import Template1
+from presentationplotlib.templates import Template1
 
 
 @Template1.template
 def slide(
         page_number,
-        figure=None, 
+        figure=None,
         ax=None,
         title="",
         **kwargs

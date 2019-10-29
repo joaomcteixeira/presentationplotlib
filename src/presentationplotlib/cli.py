@@ -33,17 +33,24 @@ ap.add_argument(
 
 args = ap.parse_args()
 
-for i, slide_path in enumerate(args.slides, start=args.page):
-    
-    sld = importlib.machinery.SourceFileLoader("s", slide_path).load_module()
-    
-    fig, ax = sld.slide(
-        i,
-        grid=args.grid,
-        )
-    
-    file_name = f"page_{i:0>4}_{slide_path[:-3]}.pdf"
-    
-    plt.savefig(f"{file_name}")
-    print(f"Saved: {file_name}")
-    plt.close("all")
+
+def main():
+
+    for i, slide_path in enumerate(args.slides, start=args.page):
+        
+        sld = importlib.machinery.SourceFileLoader("s", slide_path).load_module()
+        
+        fig, ax = sld.slide(
+            i,
+            grid=args.grid,
+            )
+        
+        file_name = f"page_{i:0>4}_{slide_path[:-3]}.pdf"
+        
+        plt.savefig(f"{file_name}")
+        print(f"Saved: {file_name}")
+        plt.close("all")
+
+if __name__ == '__main__':
+   
+    main()
