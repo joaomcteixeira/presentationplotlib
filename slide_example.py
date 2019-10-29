@@ -1,10 +1,10 @@
 from matplotlib import pyplot as plt
 from matplotlib import patches as mpatches
 
-from presentationplotlib.templates import Template1
+from presentationplotlib.templates import template1
 
 
-@Template1.template
+@template1.template
 def slide(
         page_number,
         figure=None,
@@ -13,7 +13,7 @@ def slide(
         **kwargs
         ):
     
-    Template1.add_suptitle(s="your cool title here", ax=ax)
+    template1.add_suptitle(s="your cool title here", ax=ax)
     
     return figure, ax
 

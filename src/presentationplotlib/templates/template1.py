@@ -79,10 +79,14 @@ My signature
 """
 
 signature_props = {
+    "x": 1,
+    "y": bottom_line_position,
     "fontname": font,
     "color": color,
     "fontsize": 8,
     "bbox": white_box,
+    "va": 'center',
+    "ha": 'right',
     }
 """
 dict : Properties for the signature.
@@ -205,7 +209,7 @@ def add_figure_border(figure, rect, path):
     return ax
 
 
-def add_maintitle(ax, s):
+def add_maintitle(ax, s, **kwargs):
     """
     Adds main title.
     
@@ -216,8 +220,8 @@ def add_maintitle(ax, s):
     s : str
         the text to be added.
     """
-    
-    ax.text(s=s, **main_title_props)
+    params = {**main_title_props, **kwargs}
+    ax.text(s=s, **params)
     
     return
 
@@ -296,6 +300,21 @@ def set_main_template():
     
     return figure, ax
 
+
+def update_params(*args):
+    params = {}
+    for d in args:
+        params.update(d)
+    return params
+
+
+def add_signature(ax, s=signature, **kwargs):
+    
+    params = update_params(signature_props, kwargs)
+
+    ax.text(s=signature, **params,)
+
+
 def add_grid(ax):
     """
     Adds grid to slide.
@@ -313,6 +332,7 @@ def add_grid(ax):
     ax.axis("on")
     
     return
+
 
 def page0(func):
     """
@@ -335,7 +355,7 @@ def page0(func):
     return wrapper
     
 
-def main_title_template(func):
+def section_title_page(func):
     """
     Decorator template for main title page.
     
@@ -357,19 +377,14 @@ def main_title_template(func):
     return wrapper
 
 
-def template(func):
+def page(func):
     """
     Decorator template for general slides.
     """
     
     figure, ax = set_main_template()
     
-    ax.text(
-        x=0.88,
-        y=bottom_line_position,
-        s=signature,
-        **signature_props
-        )
+    add_signature(ax)
 
     @wraps(func)
     def wrapper(*args, **kwargs):
