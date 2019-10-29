@@ -30,7 +30,7 @@ long_description = '{}\n{}'.format(
 
 setup(
     name='presentationplotlib',
-    version='0.0.1',
+    version='0.1.0',
     description='Slide presentations based on matplotlib.',
     long_description=long_description,
     author='Joao Miguel Correia Teixeira',
