@@ -186,6 +186,18 @@ def add_figure(figure, rect, path):
     return ax
 
 
+def remove_ax_border(ax):
+    
+    ax.tick_params(
+        axis='both',
+        which='both',
+        bottom=False,
+        left=False,
+        labelbottom=False,
+        labelleft=False,
+        )
+
+
 def add_figure_border(figure, rect, path):
     """
     Adds a figure with border.
@@ -197,14 +209,7 @@ def add_figure_border(figure, rect, path):
     
     ax.axis("on")
     
-    ax.tick_params(
-        axis='both',
-        which='both',
-        bottom=False,
-        left=False,
-        labelbottom=False,
-        labelleft=False,
-        )
+    remove_ax_border(ax)
     
     return ax
 

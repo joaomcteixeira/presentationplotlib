@@ -23,3 +23,16 @@ def draw_curved_arrow(
         )
 
     ax.add_patch(a1)
+
+
+def draw_rectangle(ax, x=0.1, y=0.1, w=0.1, h=0.1, **kwargs):
+    
+
+    rect = patches.Rectangle(
+        (x, y),
+        width=w,
+        height=h,
+        **kwargs,
+        )
+
+    ax.add_patch(rect)
