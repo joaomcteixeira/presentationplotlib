@@ -209,6 +209,18 @@ def add_figure_border(figure, rect, path):
     return ax
 
 
+def add_text(ax, text, x=0.5, y=0.5, **kwargs):
+    
+    params = update_params(text_box, kwargs)
+
+    ax.text(
+        x,
+        y,
+        text,
+        **params,
+        )
+
+
 def add_maintitle(ax, s, **kwargs):
     """
     Adds main title.
